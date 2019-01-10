@@ -29,7 +29,7 @@ namespace Frontend.Core.ViewModels
 					break;
 
 				default:
-					break;
+					throw new System.NotSupportedException();
 			}
 		}
 
