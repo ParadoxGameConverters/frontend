@@ -37,10 +37,7 @@ namespace Frontend.Core.Helpers
 		///     Constants used to identity specific items in the Tree View control
 		/// </summary>
 		private const int TVGN_ROOT = 0x0;
-
 		private const int TVGN_NEXT = 0x1;
-		private const int TVGN_CHILD = 0x4;
-		private const int TVGN_FIRSTVISIBLE = 0x5;
 		private const int TVGN_NEXTVISIBLE = 0x6;
 		private const int TVGN_CARET = 0x9;
 
@@ -89,10 +86,10 @@ namespace Frontend.Core.Helpers
 
 					else
 					{
-							 //
-							 //  We failed to find the Tree View control. Just leave things be, because the previous hack raised errors for some users.
-							 //
-							 t.Stop();
+						//
+						//  We failed to find the Tree View control. Just leave things be, because the previous hack raised errors for some users.
+						//
+						t.Stop();
 					}
 				};
 
