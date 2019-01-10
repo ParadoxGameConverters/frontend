@@ -4,33 +4,35 @@ using Frontend.Core.ViewModels.Interfaces;
 
 namespace Frontend.Core.Commands
 {
-    public class MoveCommand : CommandBase
-    {
-        private readonly IStepConductorBase conductorViewModel;
+	public class MoveCommand : CommandBase
+	{
+		private readonly IStepConductorBase conductorViewModel;
 
-        public MoveCommand(IEventAggregator eventAggregator, IStepConductorBase conductorViewModel)
-            : base(eventAggregator)
-        {
-            this.conductorViewModel = conductorViewModel;
-        }
+		public MoveCommand(IEventAggregator eventAggregator, IStepConductorBase conductorViewModel)
+			 : base(eventAggregator)
+		{
+			this.conductorViewModel = conductorViewModel;
+		}
 
-        protected override bool OnCanExecute(object parameter)
-        {
-            switch ((Direction) parameter)
-            {
-                case Direction.Backward:
-                    return conductorViewModel.CanMoveBackward;
+		protected override bool OnCanExecute(object parameter)
+		{
+			if ((Direction)parameter == Direction.Backward)
+			{
+				return conductorViewModel.CanMoveBackward;
+			}
+			else if ((Direction)parameter == Direction.Forward)
+			{
+				return conductorViewModel.CanMoveForward;
+			}
+			else
+			{
+				return false;
+			}
+		}
 
-                case Direction.Forward:
-                    return conductorViewModel.CanMoveForward;
-            }
-
-            return false;
-        }
-
-        protected override void OnExecute(object parameter)
-        {
-            conductorViewModel.Move((Direction) parameter);
-        }
-    }
+		protected override void OnExecute(object parameter)
+		{
+			conductorViewModel.Move((Direction)parameter);
+		}
+	}
 }
