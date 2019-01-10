@@ -171,7 +171,7 @@ namespace Frontend.Core.Helpers
 		public static bool ReadBoolValue(XElement parentElement, string propertyName, bool isPropertyRequired,
 			 bool defaultValue)
 		{
-			var value = defaultValue;
+			bool value;
 			var matches = parentElement.Descendants(propertyName);
 
 			if (matches.Any())

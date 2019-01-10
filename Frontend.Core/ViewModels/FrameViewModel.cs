@@ -43,7 +43,6 @@ namespace Frontend.Core.ViewModels
 
 		private void RemoveConverterSpecificSteps()
 		{
-			var oldCount = Steps.Count;
 			var removedCount = 0;
 
 			// Assumption: The first two steps are:
