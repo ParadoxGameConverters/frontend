@@ -147,7 +147,7 @@ namespace Frontend.Core.Model.Preferences
 				}
 
 				selectedEntry = value;
-				OnSelectedEntrySet(value); //.Name;
+				OnSelectedEntrySet(value);
 				NotifyOfPropertyChange(() => SelectedEntry);
 			}
 		}

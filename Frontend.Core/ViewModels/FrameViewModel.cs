@@ -35,8 +35,6 @@ namespace Frontend.Core.ViewModels
 
 		private void AddPreferenceSteps(IList<IStep> newSteps)
 		{
-			var oldCount = Steps.Count;
-
 			foreach (var step in newSteps)
 			{
 				Steps.Add(step);

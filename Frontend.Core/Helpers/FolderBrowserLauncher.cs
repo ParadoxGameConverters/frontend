@@ -30,15 +30,12 @@ namespace Frontend.Core.Helpers
 
 		private const int TVM_SELECTITEM = (TV_FIRST + 11);
 		private const int TVM_GETNEXTITEM = (TV_FIRST + 10);
-		private const int TVM_GETITEM = (TV_FIRST + 12);
 		private const int TVM_ENSUREVISIBLE = (TV_FIRST + 20);
 
 		/// <summary>
 		///     Constants used to identity specific items in the Tree View control
 		/// </summary>
-		private const int TVGN_ROOT = 0x0;
 		private const int TVGN_NEXT = 0x1;
-		private const int TVGN_NEXTVISIBLE = 0x6;
 		private const int TVGN_CARET = 0x9;
 
 		/// <summary>

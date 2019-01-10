@@ -88,11 +88,8 @@ namespace Frontend.Core.Tests.Converting
 		[TestMethod]
 		public void Test_Moving_File_And_Folder_With_Spaces_And_Dashes_In_The_Name()
 		{
-			// Arrange
-
 			var saveNameWithSpaces = "Version_1_9_end - Copy";
 			var translatedSaveGameName = "Version_1_9_end___Copy";
-			var modFileName = string.Concat(saveNameWithSpaces + dotModPostfix);
 			var translatedModFileName = string.Concat(translatedSaveGameName + dotModPostfix);
 			var targetFilePath = string.Concat(vic2ModPath, translatedSaveGameName, dotModPostfix);
 			var targetFolderPath = string.Concat(vic2ModPath, translatedSaveGameName);
@@ -102,26 +99,18 @@ namespace Frontend.Core.Tests.Converting
 			mockSaveGameTranslator.Setup(t => t.TranslateName(It.Is<string>(s => s.Equals(saveNameWithSpaces))))
 				 .Returns(translatedSaveGameName);
 
-			/* Match
-			 * var outputModFolderSourcePath = this.folderProxy.Combine(converterWorkingDirectory, "output", desiredFileName);
-			 */
 			mockFolderProxy.Setup(p => p.Combine(
 				 It.Is<string>(s => s.Equals(workingDirectory)),
 				 It.Is<string>(s => s.Equals("output")),
 				 It.Is<string>(s => s.Equals(translatedSaveGameName))))
 				 .Returns(Path.Combine(modFolderSourcePathMinusDesiredFileName, translatedSaveGameName));
-			/* Match
-			 * var outputModFileSourcePath = this.folderProxy.Combine(converterWorkingDirectory, "output", (desiredFileName + ".mod"));
-			 */
+
 			mockFolderProxy.Setup(p => p.Combine(
 				 It.Is<string>(s => s.Equals(workingDirectory)),
 				 It.Is<string>(s => s.Equals("output")),
 				 It.Is<string>(s => s.Equals(translatedModFileName))))
 				 .Returns(Path.Combine(workingDirectory, "output", translatedModFileName));
 
-			/* Match
-			 * var expectedAbsoluteOutputModFolderTargetPath = this.folderProxy.Combine(targetGameModPathItem.SelectedValue, desiredFileName);
-			 */
 			mockFolderProxy.Setup(p => p.Combine(
 				 It.Is<string>(s => s.Equals(vic2ModPath)),
 				 It.Is<string>(s => s.Equals(translatedSaveGameName))))
@@ -168,26 +157,18 @@ namespace Frontend.Core.Tests.Converting
 
 			mockFolderProxy.Setup(p => p.GetFileNameWithoutExtension(It.IsAny<string>())).Returns(normalSaveName);
 
-			/* Match
-			 * var outputModFolderSourcePath = this.folderProxy.Combine(converterWorkingDirectory, "output", desiredFileName);
-			 */
 			mockFolderProxy.Setup(p => p.Combine(
 				 It.Is<string>(s => s.Equals(workingDirectory)),
 				 It.Is<string>(s => s.Equals("output")),
 				 It.Is<string>(s => s.Equals(normalSaveName))))
 				 .Returns(Path.Combine(modFolderSourcePathMinusDesiredFileName, normalSaveName));
-			/* Match
-			 * var outputModFileSourcePath = this.folderProxy.Combine(converterWorkingDirectory, "output", (desiredFileName + ".mod"));
-			 */
+
 			mockFolderProxy.Setup(p => p.Combine(
 				 It.Is<string>(s => s.Equals(workingDirectory)),
 				 It.Is<string>(s => s.Equals("output")),
 				 It.Is<string>(s => s.Equals(modFileName))))
 				 .Returns(Path.Combine(workingDirectory, "output", modFileName));
 
-			/* Match
-			 * var expectedAbsoluteOutputModFolderTargetPath = this.folderProxy.Combine(targetGameModPathItem.SelectedValue, desiredFileName);
-			 */
 			mockFolderProxy.Setup(p => p.Combine(
 				 It.Is<string>(s => s.Equals(vic2ModPath)),
 				 It.Is<string>(s => s.Equals(normalSaveName))))
