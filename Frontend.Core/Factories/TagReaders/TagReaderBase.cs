@@ -41,17 +41,17 @@ namespace Frontend.Core.Factories.TagReaders
 
 				if (defaultLocationTypeAsString.Equals(RelativeFolderLocationRoot.ConverterFolder.ToString()))
 				{
-					alternatives.Add(ReadConverterPath(tag, tagName, friendlyName, predefinedFileName));
+					alternatives.Add(ReadConverterPath(tag, predefinedFileName));
 				}
 				else if (defaultLocationTypeAsString.Equals(RelativeFolderLocationRoot.WindowsUsersFolder.ToString()))
 				{
-					alternatives.Add(ReadWindowsUserFolderPath(tag, tagName, friendlyName));
+					alternatives.Add(ReadWindowsUserFolderPath(tag));
 				}
 				else if (defaultLocationTypeAsString.Equals(RelativeFolderLocationRoot.SteamFolder.ToString()))
 				{
 					// If we can find the folder using steam id, do that
 					var steamId = XElementHelper.ReadStringValue(tag, "autoDetectFromSteamId", false);
-					alternatives.Add(ReadSteamPath(tag, steamId, tagName, friendlyName));
+					alternatives.Add(ReadSteamPath(tag, steamId));
 				}
 				else
 				{
@@ -73,7 +73,7 @@ namespace Frontend.Core.Factories.TagReaders
 			return alternatives;
 		}
 
-		private IAlternativePath ReadConverterPath(XElement xmlElement, string tagName, string friendlyName, string predefinedFileName)
+		private IAlternativePath ReadConverterPath(XElement xmlElement, string predefinedFileName)
 		{
 			var subFolderLocation = XElementHelper.ReadStringValue(xmlElement, "subFolderLocation");
 
@@ -85,7 +85,7 @@ namespace Frontend.Core.Factories.TagReaders
 			return BuildAlternativePathObject(absolutePath);
 		}
 
-		private IAlternativePath ReadWindowsUserFolderPath(XElement xmlElement, string tagName, string friendlyName)
+		private IAlternativePath ReadWindowsUserFolderPath(XElement xmlElement)
 		{
 			var subFolderLocation = XElementHelper.ReadStringValue(xmlElement, "subFolderLocation");
 			var userFolder = environmentProxy.GetUsersFolder();
@@ -94,7 +94,7 @@ namespace Frontend.Core.Factories.TagReaders
 			return BuildAlternativePathObject(absolutePath);
 		}
 
-		private IAlternativePath ReadSteamPath(XElement xmlElement, string steamId, string tagName, string friendlyName)
+		private IAlternativePath ReadSteamPath(XElement xmlElement, string steamId)
 		{
 			var installationPath = ReadSteamFolder(steamId);
 			var subFolderLocation = XElementHelper.ReadStringValue(xmlElement, "subFolderLocation", false);
