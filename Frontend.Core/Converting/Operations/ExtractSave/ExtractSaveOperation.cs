@@ -43,18 +43,8 @@ namespace Frontend.Core.Converting.Operations.ExtractSave
             var result = new OperationResult();
             var saveFileName = Path.GetFileName(savePath);
 
-            try
-            {
-                zipFileHelper.ExtractFile(savePath, saveFileName, extractPath);
-                options.CurrentConverter.AbsoluteSourceSaveGame.SelectedValue = Path.Combine(extractPath,
-                    saveFileName);
-                result.State = OperationResultState.Success;
-            }
-            catch (Exception e)
-            {
-                result.State = OperationResultState.Error;
-                result.LogEntries.Add(new LogEntry(e.Message, LogEntrySeverity.Error, LogEntrySource.UI));
-            }
+            result.State = OperationResultState.Error;
+            result.LogEntries.Add(new LogEntry("Compressed saves are not supported", LogEntrySeverity.Error, LogEntrySource.UI));
 
             return result;
         }
