@@ -6,6 +6,11 @@
     public enum RelativeFolderLocationRoot
     {
         /// <summary>
+        ///     Just a folder
+        /// </summary>
+        Folder,
+
+        /// <summary>
         ///     The windows users folder
         /// </summary>
         WindowsUsersFolder,

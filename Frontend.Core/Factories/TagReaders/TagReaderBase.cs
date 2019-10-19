@@ -39,7 +39,12 @@ namespace Frontend.Core.Factories.TagReaders
 			{
 				var defaultLocationTypeAsString = XElementHelper.ReadStringValue(tag, "defaultLocationType");
 
-				if (defaultLocationTypeAsString.Equals(RelativeFolderLocationRoot.ConverterFolder.ToString()))
+				if (defaultLocationTypeAsString.Equals(RelativeFolderLocationRoot.Folder.ToString()))
+				{
+					string location = XElementHelper.ReadStringValue(xmlElement, "location");
+					alternatives.Add(BuildAlternativePathObject(location));
+				}
+				else if (defaultLocationTypeAsString.Equals(RelativeFolderLocationRoot.ConverterFolder.ToString()))
 				{
 					alternatives.Add(ReadConverterPath(tag, predefinedFileName));
 				}
