@@ -35,13 +35,19 @@ namespace Frontend.Core.Helpers
 
 			// Why the "where clause": Some entries in the requireditems list is only used by the frontend. 
 			// Those that needs to go into configuration.txt has the "TagName" attribute check, the others don't.
-			foreach (
-				 var folder in
-					  converterSettings.RequiredItems.OfType<IRequiredFolder>()
-							.Where(f => !string.IsNullOrEmpty(f.TagName)))
+			foreach (var folder in converterSettings.RequiredItems.OfType<IRequiredFolder>()
+				.Where(f => !string.IsNullOrEmpty(f.TagName)))
 			{
 				sb.AppendLine("\t# " + folder.FriendlyName + ": " + folder.Description);
 				sb.AppendLine("\t" + folder.TagName + " = \"" + folder.SelectedValue + "\"");
+				sb.AppendLine();
+			}
+
+			foreach (var file in converterSettings.RequiredItems.OfType<IRequiredFile>()
+				.Where(f => string.IsNullOrEmpty(f.InternalTagName)).Where(f => !f.IsHidden))
+			{
+				sb.AppendLine("\t# " + file.FriendlyName + ": " + file.Description);
+				sb.AppendLine("\t" + file.TagName + " = \"" + file.SelectedValue + "\"");
 				sb.AppendLine();
 			}
 
