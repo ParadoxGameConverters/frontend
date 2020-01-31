@@ -12,7 +12,7 @@ namespace Frontend.Core.Converting.Operations.ExtractSave
                 {
                     var firstLine = reader.ReadLine();
 
-                    if (firstLine.StartsWith("PK"))
+                    if (firstLine.StartsWith("EU4binM"))
                     {
                         return true;
                     }

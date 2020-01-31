@@ -44,7 +44,7 @@ namespace Frontend.Core.Converting.Operations.ExtractSave
             var saveFileName = Path.GetFileName(savePath);
 
             result.State = OperationResultState.Error;
-            result.LogEntries.Add(new LogEntry("Compressed saves are not supported", LogEntrySeverity.Error, LogEntrySource.UI));
+            result.LogEntries.Add(new LogEntry("Ironman saves are not supported", LogEntrySeverity.Error, LogEntrySource.UI));
 
             return result;
         }
