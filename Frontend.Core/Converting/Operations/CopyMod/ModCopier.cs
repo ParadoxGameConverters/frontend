@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Text;
 using System.Windows;
 using Frontend.Core.Common.Proxies;
 using Frontend.Core.Helpers;
@@ -49,7 +52,31 @@ namespace Frontend.Core.Converting.Operations.CopyMod
                 folderProxy.GetFileNameWithoutExtension(options.CurrentConverter.AbsoluteSourceSaveGame.SelectedValue) +
                 options.CurrentConverter.TargetGame.SaveGameExtension;
 
-            var translatedSaveGameName = nameTranslator.TranslateName(desiredFileName);
+            // This is savegame normalization. It strips accents in a fashion compatible with the converter.
+            
+	         var normalizedString = desiredFileName.Normalize(NormalizationForm.FormD);
+            var stringBuilder = new StringBuilder();
+
+            foreach (var c in normalizedString)
+            {
+	            var unicodeCategory = CharUnicodeInfo.GetUnicodeCategory(c);
+	            if (unicodeCategory != UnicodeCategory.NonSpacingMark)
+	            {
+		            stringBuilder.Append(c);
+	            }
+            }
+            desiredFileName = stringBuilder.ToString().Normalize(NormalizationForm.FormC);
+
+            // Here we transliterate the name in case Normalize failed to do it's job (cyrillic letters won't normalize at all in frontend, unlike converter)
+            // This produces questionmarks for non-normalizable characters, which we replace with zeroes, same as the converter does.
+
+	         byte[] unicodeBytes = Encoding.Unicode.GetBytes(desiredFileName);
+	         byte[] asciiBytes = Encoding.Convert(Encoding.Unicode, Encoding.ASCII, unicodeBytes);
+	         desiredFileName = Encoding.ASCII.GetString(asciiBytes);
+	         desiredFileName = desiredFileName.Replace('?', '0');
+	         operationResult.LogEntries.Add(new LogEntry("Mod to be copied: ", LogEntrySeverity.Info, LogEntrySource.UI, desiredFileName));
+
+	         var translatedSaveGameName = nameTranslator.TranslateName(desiredFileName);
 
             // Copy the newly created output mod to the target game mod directory. 
             // The mod consists of two things: One file and one folder named after the save. Ex: The folder "France144_11_11" and the file "France144_11_11.mod".
