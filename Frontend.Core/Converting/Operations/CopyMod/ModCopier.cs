@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows;
+using System.Windows.Media;
 using Frontend.Core.Common.Proxies;
 using Frontend.Core.Helpers;
 using Frontend.Core.Logging;
@@ -52,9 +53,29 @@ namespace Frontend.Core.Converting.Operations.CopyMod
                 folderProxy.GetFileNameWithoutExtension(options.CurrentConverter.AbsoluteSourceSaveGame.SelectedValue) +
                 options.CurrentConverter.TargetGame.SaveGameExtension;
 
-            // This is savegame normalization. It strips accents in a fashion compatible with the converter.
-            
-	         var normalizedString = desiredFileName.Normalize(NormalizationForm.FormD);
+				var activeConfiguration = options.CurrentConverter.Categories.First(c => c.FriendlyName == "Configuration");
+				if (activeConfiguration != null)
+				{
+					var outputName = activeConfiguration.Preferences.First(d => d.Name == "output_name");
+					if (outputName != null)
+					{
+						var grabbedName = outputName.ToString();
+						int index1 = grabbedName.IndexOf("\"");
+						int index2 = grabbedName.LastIndexOf("\"");
+						if (index2 - index1 > 1)
+						{
+							grabbedName = grabbedName.Substring(index1+1, index2 - index1 - 1);
+							desiredFileName = grabbedName;
+						}
+
+						operationResult.LogEntries.Add(new LogEntry("Output name: " + desiredFileName, LogEntrySeverity.Info, LogEntrySource.UI));
+					}
+				}
+
+
+         // This is savegame normalization. It strips accents in a fashion compatible with the converter.
+
+         var normalizedString = desiredFileName.Normalize(NormalizationForm.FormD);
             var stringBuilder = new StringBuilder();
 
             foreach (var c in normalizedString)
