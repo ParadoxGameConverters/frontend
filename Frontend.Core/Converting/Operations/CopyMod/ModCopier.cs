@@ -56,7 +56,7 @@ namespace Frontend.Core.Converting.Operations.CopyMod
 				var activeConfiguration = options.CurrentConverter.Categories.First(c => c.FriendlyName == "Configuration");
 				if (activeConfiguration != null)
 				{
-					var outputName = activeConfiguration.Preferences.First(d => d.Name == "output_name");
+					var outputName = activeConfiguration.Preferences.FirstOrDefault(d => d.Name == "output_name");
 					if (outputName != null)
 					{
 						var grabbedName = outputName.ToString();
