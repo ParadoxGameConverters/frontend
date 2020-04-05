@@ -7,14 +7,14 @@
              xmlns:controls="clr-namespace:System.Windows;assembly=PresentationFramework"
              mc:Ignorable="d"
              xmlns:local="clr-namespace:Frontend.Core.Views.TemplateSelectors"
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="400" d:DesignWidth="400">
   <UserControl.Resources>
     <local:PreferenceTemplateSelector x:Key="PreferenceTemplateSelector" />
-    <sys:Double x:Key="EditableTextBoxWidth">150</sys:Double>
+		<sys:Double x:Key="EditableTextBoxWidth">250</sys:Double>
     <controls:GridLength x:Key="FirstColumnWidth">30</controls:GridLength>
-    <controls:GridLength x:Key="SecondColumnWidth">190</controls:GridLength>
+		<controls:GridLength x:Key="SecondColumnWidth">290</controls:GridLength>
     <Thickness x:Key="EntryTemplateHeaderMargin" Left="0" Right="0" Top="0" Bottom="5" />
-    <sys:Double x:Key="WrapPanelItemWidth">250</sys:Double>
+		<sys:Double x:Key="WrapPanelItemWidth">350</sys:Double>
 
     <Style x:Key="EntryBorderStyle" TargetType="{x:Type Border}">
       <!--<Setter Property="BorderBrush" Value="Black"/>
